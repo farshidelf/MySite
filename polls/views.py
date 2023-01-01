@@ -4,11 +4,13 @@ from .models import *
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib import messages
+from .forms import *
 
 
 class QuestionListView(ListView):
     model = Question
-    paginate_by = 2
+    paginate_by = 3
+    ordering = '-created'
 
 
 class QuestionDetailView(DetailView):
@@ -39,3 +41,19 @@ def vote_question(request, question_id):
 
 def index(request):
     return redirect(reverse('index'))
+
+
+def add_question(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Question Added Successfully!!')
+            return redirect(reverse('polls:index'))
+
+    form = QuestionForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'polls/add_question.html', context=context)
