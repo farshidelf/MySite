@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Books ListView{% endblock %}
+
+
+{% block content %}
+
+<h2>Books:</h2>
+<ul>
+{% for book in book_list %}
+
+<a href="{% url 'polls:book-detail' book.id %}"><h4>{{ book }}</h4></a>
+<ul>
+    <li>
+        {{ book.author_list }}
+    </li>
+</ul>
+<a href="{% url 'polls:book-delete' book.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+</br>
+{% empty %}
+<h5>No BOOKS</h5>
+{% endfor %}
+</ul>
+
+{% endblock %}

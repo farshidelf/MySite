@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ author }}|DetailView{% endblock %}
+
+
+{% block content %}
+
+
+<h4>{{ author }}</h4>
+<ul>
+    
+    {% for book in author.book_set.all %}
+    <li>
+        <a href="{% url 'polls:book-detail' book.id %}"><h4>{{ book }}</h4></a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
