@@ -11,7 +11,7 @@
     
     {% for book in author.book_set.all %}
     <li>
-        <a href="{% url 'polls:book-detail' book.id %}"><h4>{{ book }}</h4></a>
+        <a href="{% url 'lib:book-detail' book.id %}"><h4>{{ book }}</h4></a>
     </li>
     {% endfor %}
 </ul>

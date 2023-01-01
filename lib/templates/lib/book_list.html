@@ -9,13 +9,13 @@
 <ul>
 {% for book in book_list %}
 
-<a href="{% url 'polls:book-detail' book.id %}"><h4>{{ book }}</h4></a>
+<a href="{% url 'lib:book-detail' book.id %}"><h4>{{ book }}</h4></a>
 <ul>
     <li>
         {{ book.author_list }}
     </li>
 </ul>
-<a href="{% url 'polls:book-delete' book.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+<a href="{% url 'lib:book-delete' book.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
 </br>
 {% empty %}
 <h5>No BOOKS</h5>

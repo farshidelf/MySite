@@ -10,7 +10,7 @@
 <ul>
     {% for author in book.author.all %}
     <li>
-        <a href="{% url 'polls:author-detail' author.id %}"> {{ author }} </a>
+        <a href="{% url 'lib:author-detail' author.id %}"> {{ author }} </a>
     </li>
     {% endfor %}
 </ul>

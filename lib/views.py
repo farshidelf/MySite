@@ -10,7 +10,7 @@ from .models import *
 
 class SearchListView(View):
     def get(self, request):
-        return redirect(reverse('polls:index'))
+        return redirect(reverse('lib:index'))
 
     def post(self, request):
         if q:= Book.objects.filter(Q(title__contains=request.POST['searched']) | Q(author__name__icontains=request.POST['searched'])).all():
@@ -20,7 +20,7 @@ class SearchListView(View):
         context = {
             'book_list': book_list
         }
-        return render(request, 'polls/book_list.html', context=context)
+        return render(request, 'lib/book_list.html', context=context)
 
 
 # class SearchListView(ListView):
@@ -32,7 +32,7 @@ class SearchListView(View):
 def delete_book(request, book_id):
     Book.objects.get(pk=book_id).delete()
 
-    return redirect(reverse('polls:index'))
+    return redirect(reverse('lib:index'))
 
     
 class BookListView(ListView):

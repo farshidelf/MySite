@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'polls'
+app_name = 'lib'
 urlpatterns = [
     path('', views.BookListView.as_view(), name='index'),
     path('search', views.SearchListView.as_view(), name='search'),
