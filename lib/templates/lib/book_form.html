@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if 'add' in request.path %}ADD{% else %}Update{% endif %} Book{% endblock %}
+
+
+{% block content %}
+
+<h3>{% if 'add' in request.path %}ADD{% else %}Update{% endif %} Book:</h3>
+<form method="POST" class="form-control">
+ 
+    <!-- Security token -->
+    {% csrf_token %}
+    
+    {% load crispy_forms_tags %}
+    <!-- Using the formset -->
+    {{ form|crispy }}
+     
+    <input type="submit" value="{% if 'add' in request.path %}ADD{% else %}Update{% endif %} BOOK!" class="btn btn-block btn-dark">
+</form>
+<br>
+
+{% endblock %}

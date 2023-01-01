@@ -15,7 +15,10 @@
         {{ book.author_list }}
     </li>
 </ul>
+<br>
 <a href="{% url 'lib:book-delete' book.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+<a href="{% url 'lib:book-update' book.id %}" class="btn btn-sm btn-secondary">Update</a>
+
 </br>
 {% empty %}
 <h5>No BOOKS</h5>

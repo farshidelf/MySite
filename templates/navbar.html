@@ -12,9 +12,23 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'polls:index' %}">Polls</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'polls:question-add' %}">Add Question</a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add..
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'polls:question-add' %}">Question</a>
+            <a class="dropdown-item" href="{% url 'lib:book-add' %}">Book</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'lib:author-list' %}">Authors</a>
+          </div>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">New</a>
+        </li>
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Dropdown

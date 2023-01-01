@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Author ListView{% endblock %}
+
+
+{% block content %}
+
+<h2>Authors:</h2>
+<ul>
+{% for author in author_list %}
+
+<ul>
+    <li>
+        {{ author }}
+    </li>
+</ul>
+<br>
+<a href="{% url 'lib:author-delete' author.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+
+</br>
+{% empty %}
+<h5>No BOOKS</h5>
+{% endfor %}
+</ul>
+
+{% endblock %}

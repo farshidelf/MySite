@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views import View
 from django.db.models import Q
 from django.urls import reverse
@@ -34,14 +35,43 @@ def delete_book(request, book_id):
 
     return redirect(reverse('lib:index'))
 
+
+def delete_author(request, author_id):
+    Author.objects.get(pk=author_id).delete()
+
+    return redirect(reverse('lib:author-list'))
+
     
 class BookListView(ListView):
     model = Book
-    paginate_by = 2
+    paginate_by = 3
+
+
+class AuthorListView(ListView):
+    model = Author
 
 
 class BookDetailView(DetailView):
     model = Book
 
+
 class AuthorDetailView(DetailView):
     model = Author
+
+
+class CreateBookView(CreateView):
+    model = Book
+
+    fields = 'title', 'author', 'summary'
+    success_url = '/lib/'
+
+
+class UpdateBookView(UpdateView):
+    model = Book
+
+    fields = 'title', 'author', 'summary'
+    success_url = '/lib/'
+
+
+def index(request):
+    pass
