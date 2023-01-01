@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ question }}|DetailView{% endblock %}
+
+
+{% block content %}
+
+
+<h4>{{ question }}</h4>
+<ul>
+    <form action="{% url 'polls:question-vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choices.all %}
+        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{ choice.id }}"/>
+        <label for="choice{{forloop.counter}}">{{ choice }} - ({{ choice.votes }})</label><br>
+        {% endfor %}
+        <input type="submit" value="VOTE" class="btn btn-primary"/>
+    </form>
+</ul>
+
+{% endblock %}

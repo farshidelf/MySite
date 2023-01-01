@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Qustion|ListView{% endblock %}
+
+
+{% block content %}
+
+<h2>Questions:</h2>
+<ul>
+{% for question in question_list %}
+
+<a href="{% url 'polls:question-detail' question.id %}"><h4>{{ question }}</h4></a>
+<ul>
+    <li>
+        {{ question.owner }}<br>
+        {{ question.created }}<br>
+        {{ question.modify }}<br>
+    </li>
+</ul>
+<a href="{% url 'polls:question-delete' question.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+</br>
+<br>
+
+{% empty %}
+<h5>No Question</h5>
+{% endfor %}
+</ul>
+
+{% endblock %}
