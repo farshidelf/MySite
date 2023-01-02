@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Question(models.Model):
     text = models.CharField(max_length=400)
 
@@ -14,7 +15,8 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name='choices')
     text = models.CharField(max_length=400)
     votes = models.PositiveSmallIntegerField(default=0)
 
