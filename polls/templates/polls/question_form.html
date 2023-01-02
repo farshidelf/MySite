@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ question }}|UpdateView{% endblock %}
+
+
+{% block content %}
+
+
+<h4>Update {{ question }}</h4>
+<ul>
+    <form action="" method="post" class="form-control">
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+        {{ form|crispy }}
+        <input type="submit" value="Update" class="btn btn-block btn-primary"/>
+    </form>
+</ul>
+
+{% endblock %}

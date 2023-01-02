@@ -8,7 +8,7 @@ from crispy_forms.layout import Submit
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ('text', 'owner')
+        fields = ('text',)
 
     
         

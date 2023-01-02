@@ -3,6 +3,7 @@ from django.urls import reverse
 from .models import *
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from .forms import *
 
@@ -47,7 +48,9 @@ def add_question(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
-            form.save()
+            question = form.save(commit=False)
+            question.owner = request.user
+            question.save()
             messages.success(request, 'Question Added Successfully!!')
             return redirect(reverse('polls:index'))
 
@@ -57,3 +60,10 @@ def add_question(request):
         'form': form
     }
     return render(request, 'polls/add_question.html', context=context)
+
+
+class QuestionUpdateView(UpdateView):
+    model = Question
+
+    fields = 'text',
+    success_url = '/polls/'
