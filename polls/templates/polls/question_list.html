@@ -17,9 +17,10 @@
         {{ question.modify }}<br>
     </li>
 </ul>
+{% if request.user == question.owner %}
 <a href="{% url 'polls:question-delete' question.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
 <a href="{% url 'polls:question-update' question.id %}" class="btn btn-sm btn-secondary">Update</a>
-
+{% endif %}
 </br>
 <br>
 

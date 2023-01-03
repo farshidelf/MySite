@@ -11,8 +11,8 @@ from django.contrib.auth.decorators import permission_required
 
 class QuestionListView(ListView):
     model = Question
-    paginate_by = 3
-    ordering = '-created'
+    paginate_by = 5
+    ordering = '-modify'
 
 
 class QuestionDetailView(DetailView):
@@ -20,9 +20,12 @@ class QuestionDetailView(DetailView):
 
 
 def delete_question(request, question_id):
-    q = get_object_or_404(Question, pk=question_id)
-    q.delete()
-
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user == question.owner:
+        question.delete()
+        messages.success(request,f'{question} deleted!')
+    else:
+        messages.error(request,'You dont own this question')
     return redirect(reverse('polls:index'))
 
 
@@ -70,6 +73,17 @@ class QuestionUpdateView(UpdateView):
     fields = 'text',
     success_url = '/polls/'
 
+
+def update_question(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user == question.owner:
+        form = QuestionForm(request.POST or None, instance=question)
+        if form.is_valid():
+            form.save()
+            return redirect('polls:index')
+        return render(request, 'polls/question_form.html', {'form': form})
+    messages.error(request,'You dont own this question')
+    return redirect(reverse('polls:index'))
 
 def vform(request):
     form = VForm()

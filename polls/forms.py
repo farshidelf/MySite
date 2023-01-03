@@ -14,10 +14,10 @@ class QuestionForm(forms.ModelForm):
     
     def clean_text(self):
         data = self.cleaned_data['text']
-        # validate_question(data)
+        validate_question(data)
 
-        if not (data.lower().startswith('w') and data.lower().endswith('?')):
-            raise forms.ValidationError('v')
+        # if not (data.lower().startswith('w') and data.lower().endswith('?')):
+        #     raise forms.ValidationError('Question Must start with W and ends with ?')
         return data
 
 
