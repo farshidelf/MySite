@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'member.apps.MemberConfig',
     'polls.apps.PollsConfig',
     'lib.apps.LibConfig',
     'crispy_forms',
