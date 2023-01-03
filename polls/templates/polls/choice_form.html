@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Choice{% endblock %}
+
+
+{% block content %}
+
+<h3>Edit Choices: </h3>
+
+<form method="POST" class="form-controll">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    {{ form|crispy }}
+    <input type="submit" value="Add Choice" class="btn btn-block btn-secondary"/>
+</form>
+
+<br>
+<ul>
+{% for choice in all_choices %}
+<li><p><strong>{{ choice }}</strong> - ({{ choice.votes }})</p></li>
+<a href="{% url 'polls:choice-delete' question.id choice.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete choice</a>
+
+{% endfor %}
+</ul>
+
+{% endblock %}

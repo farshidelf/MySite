@@ -7,6 +7,8 @@ urlpatterns = [
     path('vform/',views.vform),
     path('add_question/', views.add_question, name='question-add'),
     path('<pk>/', views.QuestionDetailView.as_view(), name='question-detail'),
+    path('<int:question_id>/edit_choices/', views.AddChoiceToQuestion.as_view(), name='choices-edit'),
+    path('<int:question_id>/<int:choice_id>/delete/', views.delete_choice, name='choice-delete'),
     path('<int:question_id>/update/', views.update_question, name='question-update'),
     # path('<pk>/update/', views.QuestionUpdateView.as_view(), name='question-update'),
     path('<int:question_id>/delete', views.delete_question, name='question-delete'),

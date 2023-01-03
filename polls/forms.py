@@ -1,8 +1,14 @@
 from django import forms
 from .models import *
 
-from .my_vals import validate_question
+from .my_vals import *
 
+
+class ChoiceForm(forms.ModelForm):
+    text = forms.CharField(max_length=300, validators=[validate_choice,])
+    class Meta:
+        model = Choice
+        fields = ('text',)
 
 
 class QuestionForm(forms.ModelForm):

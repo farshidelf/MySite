@@ -7,3 +7,11 @@ def validate_question(value):
             _('%(value)s is not a question start with W and endswith ?'),
             params={'value': value},
         )
+
+
+def validate_choice(value):
+    if ' ' in value:
+        raise ValidationError(
+            _('%(value)s has spaces :(('),
+            params={'value': value},
+        )

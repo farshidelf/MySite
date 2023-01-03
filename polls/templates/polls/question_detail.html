@@ -7,10 +7,11 @@
 
 
 <h4>{{ question }}</h4>
+{% if question.choices.all %}
 <ul>
-    <form action="{% url 'polls:question-vote' question.id %}" method="post">
+    <form action="{% url 'polls:question-vote' question.id %}" method="post" class="form-control">
         {% csrf_token %}
-        {% for choice in question.choices.all %}
+        {% for choice in question.choices.all|dictsortreversed:"votes" %}
         {% cycle 'red' 'green' 'blue' as txtcolor silent %}
         <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{ choice.id }}"/>
         <label for="choice{{forloop.counter}}" style="color: {{ txtcolor }};">{{ choice }} - ({{ choice.votes }})</label><br>
@@ -18,5 +19,7 @@
         <input type="submit" value="VOTE" class="btn btn-primary"/>
     </form>
 </ul>
+{% endif %}
+<a href="{% url 'polls:choices-edit' question.id %}" class="btn btn-block btn-secondary">{% if question.choices.all %}Edit{% else %}Add{% endif %} choices</a>
 
 {% endblock %}
