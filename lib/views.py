@@ -4,7 +4,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views import View
 from django.db.models import Q
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 
@@ -59,19 +60,24 @@ class AuthorDetailView(DetailView):
     model = Author
 
 
-class CreateBookView(CreateView):
+class BookCreateView(CreateView):
     model = Book
 
     fields = 'title', 'author', 'summary'
     success_url = '/lib/'
 
 
-class UpdateBookView(UpdateView):
+class BookUpdateView(UpdateView):
     model = Book
 
     fields = 'title', 'author', 'summary'
     success_url = '/lib/'
 
+
+class AuthorCreateView(LoginRequiredMixin, CreateView):
+    model = Author
+    fields = 'name',
+    success_url = reverse_lazy('lib:author-list')
 
 def index(request):
     pass

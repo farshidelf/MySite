@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from .forms import *
+from django.contrib.auth.decorators import permission_required
 
 
 class QuestionListView(ListView):
@@ -43,13 +44,14 @@ def vote_question(request, question_id):
 def index(request):
     return redirect(reverse('index'))
 
-
+@permission_required('can_add')
 def add_question(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)
-            question.owner = request.user
+            if request.user.is_authenticated:
+                question.owner = request.user
             question.save()
             messages.success(request, 'Question Added Successfully!!')
             return redirect(reverse('polls:index'))
@@ -67,3 +69,10 @@ class QuestionUpdateView(UpdateView):
 
     fields = 'text',
     success_url = '/polls/'
+
+
+def vform(request):
+    form = VForm()
+    if request.method == 'POST':
+        form = VForm(request.POST)
+    return render(request, 'polls/vform.html',{'form':form})
