@@ -10,17 +10,20 @@
 {% for question in question_list %}
 
 <a href="{% url 'polls:question-detail' question.id %}"><h4>{{ question }}</h4></a>
-<ul>
-    <li>
+<ul class="list-group">
+    <li class="list-group-item col-4">
         {{ question.owner }}<br>
         {{ question.created }}<br>
         {{ question.modify }}<br>
+        <br>
+        {% if request.user == question.owner %}
+            <a href="{% url 'polls:question-delete' question.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+            <a href="{% url 'polls:question-update' question.id %}" class="btn btn-sm btn-secondary">Update</a>
+        {% endif %}
+
     </li>
 </ul>
-{% if request.user == question.owner %}
-<a href="{% url 'polls:question-delete' question.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
-<a href="{% url 'polls:question-update' question.id %}" class="btn btn-sm btn-secondary">Update</a>
-{% endif %}
+
 </br>
 <br>
 
